@@ -2,31 +2,48 @@
 #include <stdlib.h>
 #include <time.h>
 
-//Créer une fonction plus_moins qui prend en entrée un int choix_joueur et un int valeur_a_trouver
-int main ( int argc, char** argv )
+int plus_moins ( int value )
 {
-    int valeur_trouver = 0, choix_joueur = 0;
-    const int MAX = 100, MIN = 1;
-
-    srand(time(NULL));
-    valeur_trouver = (rand() % (MAX - MIN + 1)) + MIN;
-
+    int choix_joueur;
+    printf("%d",value);
 
     do
     {
        
-        printf("Quel est le nombre ? ");
+        printf("Quel est le nombre ?\n ");
         scanf("%d", &choix_joueur);
 
-        if (valeur_trouver > choix_joueur)
-            printf("C'est plus !\n\n");
-        else if (valeur_trouver < choix_joueur)
-            printf("C'est moins !\n\n");
+        if (value > choix_joueur)
+	{
+	    printf("c'est plus !\n");
+            printf("le nombre entre n'est pas correct \n");
+	    scanf("%d", &choix_joueur);
+	}   
+        else if (value < choix_joueur)
+	{
+            printf("C'est moins !\n");
+	    printf("le nombre entre n'est pas correct \n");
+	    scanf("%d", &choix_joueur);
+
+	}    
         else
-            printf ("Bingo !\n\n");
-    } while (choix_joueur != valeur_trouver);
+            printf ("Bingo !\n");
+    } while (choix_joueur != value);
 
 }
+
+int main()
+{
+
+	int valeur_trouver = 0, choix_joueur = 0;
+        const int Max = 100, Min = 1;
+
+        srand(time(NULL));
+        valeur_trouver = (rand() % (Max - Min + 1)) + Min;
+	return plus_moins(valeur_trouver);
+
+}
+
  
  
  
