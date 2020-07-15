@@ -2,83 +2,123 @@
 #include <stdlib.h>
 #include <time.h>
 
-int plus_moins ( int value )
-{
-    int choix_joueur;
-    printf("%d",value);
-
-    do
-    {
-       
-        printf("Quel est le nombre ?\n ");
-        scanf("%d", &choix_joueur);
-
-        if (value > choix_joueur)
-	{
-	    printf("c'est plus !\n");
-            printf("le nombre entre n'est pas correct \n");
-	    scanf("%d", &choix_joueur);
-	}   
-        else if (value < choix_joueur)
-	{
-            printf("C'est moins !\n");
-	    printf("le nombre entre n'est pas correct \n");
-	    scanf("%d", &choix_joueur);
-
-	}    
-        else
-            printf ("Bingo !\n");
-    } while (choix_joueur != value);
-
-}
-
 int main()
 {
+    int nombreMystere = 0, nombreEntre = 0;
+    int compteurDeCoups = 0;
+    int continuerPartie = 1;
+    int modedeJeu = 0;
+    int niveauDeDifficulte = 0;
+    int finDuJeu;
+    int max = 100, min = 1;
 
-        int valeur_trouver = 0, choix_joueur = 0, difficulte = 0;
-        int nombreTape =0, rejouer=0, coups =0, nombres_essaie =0, modeJeu =0, niveauJeu =0;
-	const int MAX = 100, MIN = 1;
-	srand(time(NULL));
 
+    srand(time(NULL));
+
+    while(continuerPartie!=0)
+    {
+        finDuJeu = 1;
+        printf("===choix joueur===\n");
+        printf("1.jouer a 2\n");
+       	printf("2.solo\n");
+        scanf("%d", &modedeJeu);
+	
         printf("===Niveau De Difficulte===\n");
-        printf("1. Niveau facile : Entre 1 et 100\n");
-        printf("2. Niveau moyen : Entre 1 et 1000\n");
-        printf("3. Niveau difficile : Entre 1 et 10000\n");
-        scanf("%d", &difficulte);
-        if (difficulte == 1)
-           {
-              int MAX = 100;
-	      valeur_trouver = (rand() % (MAX - MIN + 1)) + MIN;
-	      nombres_essaie =1000;
-	      nombres_essaie--;
-	      return plus_moins( valeur_trouver);
+        printf("1.Niveau facile:Entre 1 et 100\n");
+        printf("2.Niveau moyen:Entre 1 et 1000\n");
+	printf("1.Niveau difficile:Entre 1 et 10000\n");
+        printf("Votre choix : ");
+        scanf("%d", &niveauDeDifficulte);
+
+        printf("\n");
+
+        switch(niveauDeDifficulte)
+        {
+            case 1 : max = 100;break;
+            case 2 : max = 1000;break;
+            case 3 : max = 10000;break;
+            default : printf("erreur du Niveau de difficulte , veuillez choisir 1 ou 2 ou 3!\n");break;
+        }
+
+        if(niveauDeDifficulte==1 || niveauDeDifficulte == 2 || niveauDeDifficulte == 3)
+        {
+            nombreMystere = (rand() % (max - min + 1)) + min;
+
+            switch(modedeJeu)
+            {
+                case 1 /*vs 1 joueur*/ :
+                            do
+                            {
+                                compteurDeCoups++;
+                                printf("Quel est le nombre a trouver ? ");
+                                scanf("%d", &nombreEntre);
+
+                                // comparaison
+
+                                if (nombreMystere > nombreEntre)
+                                    printf("C'est plus !\n\n");
+                                else if (nombreMystere < nombreEntre)
+                                    printf("C'est moins !\n\n");
+                                else
+                                    printf ("Bingo, vous avez trouve le nombre mystere en %d coups !!!\n\n",compteurDeCoups);
+
+                            } while (nombreEntre != nombreMystere);break;
+                case 2 /*vs 2 joueur*/ :
+                    do
+                    {
+                      
+                        compteurDeCoups++;
+                        if(finDuJeu!=0)
+                        {
+
+                            printf("Joueur 1 : Quel est le nombre ? ");
+                            scanf("%d", &nombreEntre);
+
+                            if (nombreMystere > nombreEntre)
+                                printf("C'est plus !\n\n");
+                            else if (nombreMystere < nombreEntre)
+                                printf("C'est moins !\n\n");
+                            else
+                            {
+                                printf ("Bingo, vous avez trouve le nombre mystere en %d coups !!!\n\n",compteurDeCoups);
+                                finDuJeu = 0;
+                            }
+                        }
+                        if(finDuJeu!=0)
+                        {
+
+                            printf("Joueur 2 : Quel est le nombre ? ");
+                            scanf("%d", &nombreEntre);
+
+                            // On compare le nombre entré avec le nombre mystère
+
+                            if (nombreMystere > nombreEntre)
+                                printf("C'est plus !\n\n");
+                            else if (nombreMystere < nombreEntre)
+                                printf("C'est moins !\n\n");
+                            else
+                            {
+                                printf ("Bingo, vous avez trouve le nombre mystere en %d coups !!!\n\n",compteurDeCoups);
+                            }
+                        }
+
+                    } while (nombreEntre != nombreMystere);break;
+                default : printf("erreur!!, veuillez choisir 1 ou 2!\n");
+            }
+        }
 
 
-           }
-        else if (difficulte == 2)
-           {
-              int MAX = 1000;
-	      valeur_trouver = (rand() % (MAX - MIN + 1)) + MIN;
-	      nombres_essaie = 25;
-	      nombres_essaie--;
-	      return plus_moins( valeur_trouver);
 
+         printf("Voulez vous continuer la partie ?\n\n");
+         printf("Tapez 1 pour OUI ou 0 pour NON: ");
+         scanf("%d", &continuerPartie);
+         printf("\n\n");
 
-           }
-         else if (difficulte == 3)
-           {
-              int MAX = 10000;
-	      valeur_trouver = (rand() % (MAX - MIN + 1)) + MIN;
-	      nombres_essaie = 10;
-	      nombres_essaie--;
-	      return plus_moins( valeur_trouver);
+    }
 
+    printf("\t===Fin du Jeu===\n");
 
-           }
-         else
-           {
-              printf("Vous vous êtes trompé de touche\n petit con\n");
-           }
+    return 0;
 }
 
 
