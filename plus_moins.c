@@ -19,15 +19,15 @@ int main()
     {
         finDuJeu = 1;
         printf("===choix joueur===\n");
-        printf("1.jouer a 2\n");
-       	printf("2.solo\n");
+        printf("1.solo\n");
+	printf("2.jouer a 2\n"); printf("entrer le choix :");
         scanf("%d", &modedeJeu);
 	
         printf("===Niveau De Difficulte===\n");
         printf("1.Niveau facile:Entre 1 et 100\n");
         printf("2.Niveau moyen:Entre 1 et 1000\n");
-	printf("1.Niveau difficile:Entre 1 et 10000\n");
-        printf("Votre choix : ");
+	printf("3.Niveau difficile:Entre 1 et 10000\n");
+        printf("entrer le choix : ");
         scanf("%d", &niveauDeDifficulte);
 
         printf("\n");
@@ -42,13 +42,14 @@ int main()
 
         if(niveauDeDifficulte==1 || niveauDeDifficulte == 2 || niveauDeDifficulte == 3)
         {
-            nombreMystere = (rand() % (max - min + 1)) + min;
+            
 
             switch(modedeJeu)
             {
                 case 1 /*vs 1 joueur*/ :
                             do
                             {
+				nombreMystere = (rand() % (max - min + 1)) + min;
                                 compteurDeCoups++;
                                 printf("Quel est le nombre a trouver ? ");
                                 scanf("%d", &nombreEntre);
@@ -70,7 +71,8 @@ int main()
                         compteurDeCoups++;
                         if(finDuJeu!=0)
                         {
-
+			    printf("joueur 1: quel est le nombreMystere ?");
+                            scanf("%d", &nombreMystere);
                             printf("Joueur 1 : Quel est le nombre ? ");
                             scanf("%d", &nombreEntre);
 
